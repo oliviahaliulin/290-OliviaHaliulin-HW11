@@ -16,12 +16,17 @@ async function getData() {
   }
 
   const response = await fetch("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single");
+  
+  if (response.ok) {
   const data = await response.json();
 
   console.log("Full API response:", data);
 
   resultText.textContent = data.joke;
   statusText.textContent = "Joke loaded.";
+  } else {
+    showError("Failed to fetch joke. Please try again.");
+    }
 
   if (button) {
     button.disabled = false;
